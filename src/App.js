@@ -6,11 +6,11 @@ import { dayTheme, nightTheme, GlobalStyle } from './components/GlobalStyle';
 import { stateMachine } from './game-state/states';
 import GameContainer from './components/GameContainer';
 import HeadsUpDisplay from './components/hud/HeadsUpDisplay';
+import World from './components/world/World';
 import Controls from './components/controls/Controls';
 
 function App() {
   const [current, send] = useMachine(stateMachine);
-
   return (
     <ThemeProvider theme={current.context.dayTime ? dayTheme : nightTheme}>
       <GlobalStyle />
@@ -21,7 +21,7 @@ function App() {
           water={current.context.water}
           stamina={current.context.stamina}
         />
-        <p>Hello world</p>
+        <World />
         <Controls />
       </GameContainer>
     </ThemeProvider>
