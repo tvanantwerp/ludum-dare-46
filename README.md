@@ -22,3 +22,6 @@ Theme is "Keep It Alive"
   - Top: HUD of resources
   - Middle: view of location or map
   - Bottom: buttons for doing stuff
+- Win condition
+  - Get rescued
+  - Find civilization
