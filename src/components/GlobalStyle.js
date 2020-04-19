@@ -1,6 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 
-export const Theme = {};
+export const Theme = {
+  dayBackground: '#EEF6CE',
+  nightBackground: '#242423',
+};
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -8,6 +11,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html, body {
+    background-color: ${props => props.theme.nightBackground};
     font-family: sans-serif;
   }
 `;

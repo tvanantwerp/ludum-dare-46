@@ -31,5 +31,12 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
+    'react/self-closing-comp': [
+      'error',
+      {
+        component: true,
+        html: true,
+      },
+    ],
   },
 };
