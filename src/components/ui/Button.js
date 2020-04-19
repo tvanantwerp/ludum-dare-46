@@ -5,7 +5,9 @@ const ButtonStyles = css`
   border: 1px solid ${props => props.theme.primary};
   color: ${props => props.theme.primary};
   font-size: 1rem;
-  font-family: sans-serif;
+  font-family: ${props => props.theme.fontFamily};
+  font-size: ${props => props.theme.fontSize};
+  line-height: 1.4;
   padding: 0.5rem 1rem;
 `;
 
@@ -17,4 +19,12 @@ export const DisplayButton = styled.div`
 export const ActionButton = styled.button`
   ${ButtonStyles}
   cursor: pointer;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+
+  &:hover,
+  &:focus {
+    background-color: ${props => props.theme.primary};
+    border: 1px solid ${props => props.theme.secondary};
+    color: ${props => props.theme.secondary};
+  }
 `;
