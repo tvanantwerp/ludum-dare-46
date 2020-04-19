@@ -8,7 +8,9 @@ function App() {
   return (
     <ThemeProvider theme={Theme}>
       <GlobalStyle />
-      <GameContainer />
+      <GameContainer>
+        <p>Hello world</p>
+      </GameContainer>
     </ThemeProvider>
   );
 }
