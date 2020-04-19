@@ -7,7 +7,8 @@ const StyledGameContainer = styled.div`
   grid-gap: 1rem;
   grid-template-rows: auto minmax(500px, 1fr) auto;
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 500px;
+  padding: 1rem;
 `;
 
 const GameContainer = ({ children }) => {

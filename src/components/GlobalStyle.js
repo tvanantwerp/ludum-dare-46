@@ -23,7 +23,9 @@ export const GlobalStyle = createGlobalStyle`
     color: ${props => props.theme.primary};
     font-family: ${props => props.theme.fontFamily};
     font-size: ${props => props.theme.fontSize};
+    margin: 0;
     min-height: 100vh;
+    padding: 0;
   }
 
   body {
