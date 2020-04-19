@@ -1,17 +1,26 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
+import { useMachine } from '@xstate/react';
 
-import { Theme, GlobalStyle } from './components/GlobalStyle';
+import { dayTheme, nightTheme, GlobalStyle } from './components/GlobalStyle';
+import { stateMachine } from './game-state/states';
 import GameContainer from './components/GameContainer';
 import HeadsUpDisplay from './components/hud/HeadsUpDisplay';
 import Controls from './components/controls/Controls';
 
 function App() {
+  const [current, send] = useMachine(stateMachine);
+
   return (
-    <ThemeProvider theme={Theme}>
+    <ThemeProvider theme={current.context.dayTime ? dayTheme : nightTheme}>
       <GlobalStyle />
       <GameContainer>
-        <HeadsUpDisplay fuel={100} food={100} water={100} stamina={100} />
+        <HeadsUpDisplay
+          fuel={current.context.fuel}
+          food={current.context.food}
+          water={current.context.water}
+          stamina={current.context.stamina}
+        />
         <p>Hello world</p>
         <Controls />
       </GameContainer>
