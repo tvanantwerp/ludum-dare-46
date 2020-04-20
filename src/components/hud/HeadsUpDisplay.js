@@ -7,10 +7,30 @@ import ButtonsContainer from '../ui/ButtonsContainer';
 const HeadsUpDisplay = ({ fuel, food, water, stamina }) => {
   return (
     <ButtonsContainer show={true}>
-      <DisplayButton>🔥{fuel}</DisplayButton>
-      <DisplayButton>🍖{food}</DisplayButton>
-      <DisplayButton>💧{water}</DisplayButton>
-      <DisplayButton>💪{stamina}</DisplayButton>
+      <DisplayButton>
+        <span role='img' aria-label='Fuel'>
+          🔥
+        </span>
+        {fuel}
+      </DisplayButton>
+      <DisplayButton>
+        <span role='img' aria-label='Food'>
+          🍖
+        </span>
+        {food}
+      </DisplayButton>
+      <DisplayButton>
+        <span role='img' aria-label='Water'>
+          💧
+        </span>
+        {water}
+      </DisplayButton>
+      <DisplayButton>
+        <span role='img' aria-label='Stamina'>
+          💪
+        </span>
+        {stamina}
+      </DisplayButton>
     </ButtonsContainer>
   );
 };

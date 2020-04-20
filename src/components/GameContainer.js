@@ -5,8 +5,8 @@ import styled from 'styled-components';
 const StyledGameContainer = styled.div`
   display: grid;
   grid-gap: 1rem;
+  grid-template-columns: 1fr;
   grid-template-rows: auto minmax(500px, 1fr) auto;
-  margin: 0 auto;
   max-width: 500px;
   padding: 1rem;
 `;

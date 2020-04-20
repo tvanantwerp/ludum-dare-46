@@ -9,6 +9,7 @@ const ButtonStyles = css`
   font-size: ${props => props.theme.fontSize};
   line-height: 1.4;
   padding: 0.5rem 1rem;
+  text-align: center;
 `;
 
 export const DisplayButton = styled.div`
