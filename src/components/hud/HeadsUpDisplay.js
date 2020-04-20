@@ -8,28 +8,28 @@ const HeadsUpDisplay = ({ fuel, food, water, stamina }) => {
   return (
     <ButtonsContainer show={true}>
       <DisplayButton>
-        <span role='img' aria-label='Fuel'>
-          🔥
-        </span>
-        {fuel}
+        <div role='img' aria-label='Stamina'>
+          💪
+        </div>
+        {stamina}
       </DisplayButton>
       <DisplayButton>
-        <span role='img' aria-label='Food'>
+        <div role='img' aria-label='Food'>
           🍖
-        </span>
+        </div>
         {food}
       </DisplayButton>
       <DisplayButton>
-        <span role='img' aria-label='Water'>
+        <div role='img' aria-label='Water'>
           💧
-        </span>
+        </div>
         {water}
       </DisplayButton>
       <DisplayButton>
-        <span role='img' aria-label='Stamina'>
-          💪
-        </span>
-        {stamina}
+        <div role='img' aria-label='Fuel'>
+          🔥
+        </div>
+        {fuel}
       </DisplayButton>
     </ButtonsContainer>
   );

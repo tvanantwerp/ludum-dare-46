@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import StartControls from './StartControls';
-import MorningControls from './MorningControls';
+import DayControls from './DayControls';
 
 const Controls = ({ current, send }) => {
   return (
     <>
       <StartControls show={current.matches('start')} send={send} />
-      <MorningControls show={current.matches('day')} send={send} />
+      <DayControls show={current.matches('day')} send={send} />
     </>
   );
 };

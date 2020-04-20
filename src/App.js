@@ -11,7 +11,6 @@ import Controls from './components/controls/Controls';
 
 function Game() {
   const [current, send] = useMachine(stateMachine);
-  console.log(current);
 
   return (
     <ThemeProvider theme={current.context.dayTime ? dayTheme : nightTheme}>
