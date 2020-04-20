@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 import { ActionButton } from '../ui/Button';
 import ButtonsContainer from '../ui/ButtonsContainer';
 
-const StartControls = ({ show, update }) => {
+const StartControls = ({ show, send }) => {
   return (
     <ButtonsContainer show={show}>
       <ActionButton
-        style={{ textAlign: 'center', width: '100%' }}
         onClick={() => {
-          update('BEGIN');
+          send('BEGIN');
         }}
       >
         Begin
@@ -21,7 +20,7 @@ const StartControls = ({ show, update }) => {
 
 StartControls.propTypes = {
   show: PropTypes.bool,
-  update: PropTypes.func,
+  send: PropTypes.func,
 };
 
 export default StartControls;

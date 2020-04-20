@@ -7,8 +7,8 @@ import MorningControls from './MorningControls';
 const Controls = ({ current, send }) => {
   return (
     <>
-      <StartControls show={current.matches('start')} update={send} />
-      <MorningControls show={current.matches('day')} update={send} />
+      <StartControls show={current.matches('start')} send={send} />
+      <MorningControls show={current.matches('day')} send={send} />
     </>
   );
 };

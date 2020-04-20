@@ -9,9 +9,10 @@ import HeadsUpDisplay from './components/hud/HeadsUpDisplay';
 import World from './components/world/World';
 import Controls from './components/controls/Controls';
 
-function App() {
+function Game() {
   const [current, send] = useMachine(stateMachine);
   console.log(current);
+
   return (
     <ThemeProvider theme={current.context.dayTime ? dayTheme : nightTheme}>
       <GlobalStyle />
@@ -29,4 +30,4 @@ function App() {
   );
 }
 
-export default App;
+export default Game;

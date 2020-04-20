@@ -4,19 +4,19 @@ import PropTypes from 'prop-types';
 import { ActionButton } from '../ui/Button';
 import ButtonsContainer from '../ui/ButtonsContainer';
 
-const MorningControls = ({ show, update }) => {
+const MorningControls = ({ show, send }) => {
   return (
     <ButtonsContainer show={show}>
-      <ActionButton update={() => update('move')}>Move</ActionButton>
-      <ActionButton update={() => update('explore')}>Explore</ActionButton>
-      <ActionButton update={() => update('exploit')}>Exploit</ActionButton>
+      <ActionButton onClick={() => send('MOVE')}>Move</ActionButton>
+      <ActionButton onClick={() => send('EXPLORE')}>Explore</ActionButton>
+      <ActionButton onClick={() => send('EXPLOIT')}>Exploit</ActionButton>
     </ButtonsContainer>
   );
 };
 
 MorningControls.propTypes = {
   show: PropTypes.bool,
-  update: PropTypes.func,
+  send: PropTypes.func,
 };
 
 export default MorningControls;

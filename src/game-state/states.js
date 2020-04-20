@@ -5,28 +5,26 @@ const dayStates = {
   states: {
     idle: {
       on: {
-        MOVE: {
-          target: 'move',
-          actions: assign({ stamina: (ctx, e) => ctx.stamina + e.value }),
-        },
-        EXPLORE: {
-          target: 'explore',
-          actions: assign({ stamina: (ctx, e) => ctx.stamina + e.value }),
-        },
-        EXPLOIT: {
-          target: 'exploit',
-          actions: assign({
-            fuel: (ctx, e) => ctx.fuel + e.value,
-            food: (ctx, e) => ctx.food + e.value,
-            water: (ctx, e) => ctx.water + e.value,
-            stamina: (ctx, e) => ctx.stamina + e.value,
-          }),
-        },
+        MOVE: 'move',
+        EXPLORE: 'explore',
+        EXPLOIT: 'exploit',
       },
     },
-    move: {},
-    explore: {},
-    exploit: {},
+    move: {
+      entry: ['movesIncrement', 'staminaUpdate'],
+    },
+    explore: {
+      entry: ['movesIncrement', 'staminaUpdate'],
+    },
+    exploit: {
+      entry: [
+        'movesIncrement',
+        'fuelUpdate',
+        'foodUpdate',
+        'waterUpdate',
+        'staminaUpdate',
+      ],
+    },
   },
 };
 
@@ -42,6 +40,7 @@ export const stateMachine = Machine({
     stamina: 100,
     dayTime: true,
     dayCount: 1,
+    moves: 0,
   },
   states: {
     start: {
@@ -79,6 +78,28 @@ export const stateMachine = Machine({
       on: {
         BEGIN: 'day',
       },
+    },
+  },
+  actions: {
+    movesIncrement: (ctx, _e) => {
+      console.log(ctx);
+      return assign({ moves: ctx.moves + 1 });
+    },
+    fuelUpdate: (ctx, e) => {
+      console.log(ctx);
+      return assign({ fuel: ctx.fuel + e.value });
+    },
+    foodUpdate: (ctx, e) => {
+      console.log(ctx);
+      return assign({ food: ctx.food + e.value });
+    },
+    waterUpdate: (ctx, e) => {
+      console.log(ctx);
+      return assign({ water: ctx.water + e.value });
+    },
+    staminaUpdate: (ctx, e) => {
+      console.log(ctx);
+      return assign({ stamina: ctx.stamina + e.value });
     },
   },
 });
