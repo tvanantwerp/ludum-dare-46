@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import Start from './Start';
+import Day from './Day';
 
 const StyledWorld = styled.div`
   align-content: center;
@@ -10,12 +12,22 @@ const StyledWorld = styled.div`
   padding: 1rem;
 `;
 
-const World = () => {
+const World = ({ current, send }) => {
   return (
     <StyledWorld>
-      <Start />
+      <Start show={current.matches('start')} />
+      <Day
+        show={current.matches('day')}
+        context={current.context}
+        update={send}
+      />
     </StyledWorld>
   );
+};
+
+World.propTypes = {
+  current: PropTypes.object,
+  send: PropTypes.func,
 };
 
 export default World;

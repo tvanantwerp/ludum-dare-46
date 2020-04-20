@@ -41,6 +41,7 @@ export const stateMachine = Machine({
     water: 100,
     stamina: 100,
     dayTime: true,
+    dayCount: 1,
   },
   states: {
     start: {

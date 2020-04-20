@@ -1,16 +1,9 @@
 import React from 'react';
-import { useMachine } from '@xstate/react';
+import PropTypes from 'prop-types';
 
-import { stateMachine } from '../../game-state/states';
-import { ActionButton } from '../ui/Button';
-
-const Start = () => {
-  const [current, send] = useMachine(stateMachine);
-
-  console.log(current);
-
+const Start = ({ show }) => {
   return (
-    <div style={{ display: current.value === 'start' ? 'block' : 'none' }}>
+    <div style={{ display: show ? 'block' : 'none' }}>
       <h1>Survive and Escape the Wilderness</h1>
       <p>
         You are lost in the woods with limited supplies and no sense of how to
@@ -22,16 +15,12 @@ const Start = () => {
         civilization the next day.
       </p>
       <p>Be careful: run out of supplies or stamina and you risk death.</p>
-      <ActionButton
-        style={{ textAlign: 'center', width: '100%' }}
-        onClick={() => {
-          send('BEGIN');
-        }}
-      >
-        Begin
-      </ActionButton>
     </div>
   );
+};
+
+Start.propTypes = {
+  show: PropTypes.bool,
 };
 
 export default Start;

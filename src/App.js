@@ -11,6 +11,7 @@ import Controls from './components/controls/Controls';
 
 function App() {
   const [current, send] = useMachine(stateMachine);
+  console.log(current);
   return (
     <ThemeProvider theme={current.context.dayTime ? dayTheme : nightTheme}>
       <GlobalStyle />
@@ -21,8 +22,8 @@ function App() {
           water={current.context.water}
           stamina={current.context.stamina}
         />
-        <World />
-        <Controls />
+        <World current={current} send={send} />
+        <Controls current={current} send={send} />
       </GameContainer>
     </ThemeProvider>
   );
