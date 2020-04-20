@@ -30,76 +30,80 @@ const dayStates = {
 
 const nightStates = {};
 
-export const stateMachine = Machine({
-  id: 'game_loop',
-  initial: 'start',
-  context: {
-    fuel: 100,
-    food: 100,
-    water: 100,
-    stamina: 100,
-    dayTime: true,
-    dayCount: 1,
-    moves: 0,
-  },
-  states: {
-    start: {
-      on: {
-        BEGIN: 'day',
+export const stateMachine = Machine(
+  {
+    id: 'game_loop',
+    initial: 'start',
+    context: {
+      fuel: 100,
+      food: 100,
+      water: 100,
+      stamina: 100,
+      dayTime: true,
+      dayCount: 1,
+      moves: 0,
+    },
+    states: {
+      start: {
+        on: {
+          BEGIN: 'day',
+        },
       },
-    },
-    day: {
-      on: {
-        PERIOD_OVER: 'night',
-        GAME_OVER: 'fail',
-        GAME_WIN: 'win',
+      day: {
+        on: {
+          PERIOD_OVER: 'night',
+          GAME_OVER: 'fail',
+          GAME_WIN: 'win',
+        },
+        ...dayStates,
       },
-      ...dayStates,
-    },
-    night: {
-      states: {
-        idle: {},
-        stoke: {},
-        replenish: {},
-        rest: {},
+      night: {
+        states: {
+          idle: {},
+          stoke: {},
+          replenish: {},
+          rest: {},
+        },
+        on: {
+          PERIOD_OVER: 'day',
+          GAME_OVER: 'fail',
+          GAME_WIN: 'win',
+        },
       },
-      on: {
-        PERIOD_OVER: 'day',
-        GAME_OVER: 'fail',
-        GAME_WIN: 'win',
+      win: {
+        on: {
+          BEGIN: 'day',
+        },
       },
-    },
-    win: {
-      on: {
-        BEGIN: 'day',
+      fail: {
+        on: {
+          BEGIN: 'day',
+        },
       },
-    },
-    fail: {
-      on: {
-        BEGIN: 'day',
-      },
-    },
-  },
-  actions: {
-    movesIncrement: (ctx, _e) => {
-      console.log(ctx);
-      return assign({ moves: ctx.moves + 1 });
-    },
-    fuelUpdate: (ctx, e) => {
-      console.log(ctx);
-      return assign({ fuel: ctx.fuel + e.value });
-    },
-    foodUpdate: (ctx, e) => {
-      console.log(ctx);
-      return assign({ food: ctx.food + e.value });
-    },
-    waterUpdate: (ctx, e) => {
-      console.log(ctx);
-      return assign({ water: ctx.water + e.value });
-    },
-    staminaUpdate: (ctx, e) => {
-      console.log(ctx);
-      return assign({ stamina: ctx.stamina + e.value });
     },
   },
-});
+  {
+    actions: {
+      movesIncrement: assign((ctx, _e) => {
+        console.log(ctx);
+        return { moves: ctx.moves + 1 };
+      }),
+      fuelUpdate: assign((ctx, e) => {
+        console.log(ctx, e);
+        return { fuel: ctx.fuel + e.value };
+      }),
+      foodUpdate: assign((ctx, e) => {
+        console.log(ctx, e);
+        return { food: ctx.food + e.value };
+      }),
+      waterUpdate: assign((ctx, e) => {
+        console.log(ctx, e);
+        return { water: ctx.water + e.value };
+      }),
+      staminaUpdate: assign((ctx, e) => {
+        console.log(ctx, e);
+        return { stamina: ctx.stamina + e.value };
+      }),
+    },
+  }
+);
