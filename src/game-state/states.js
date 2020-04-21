@@ -2,8 +2,7 @@ import { Machine, assign } from 'xstate';
 
 const dayTransitions = action => {
   return [
-    { target: action, cond: 'hasMoves' },
-    { target: action, cond: 'isAlive' },
+    { target: action, cond: 'isAliveAndHasMoves' },
     { target: '#night', cond: 'isAlive' },
     { target: '#fail' },
   ];
@@ -15,9 +14,9 @@ const dayStates = {
   states: {
     idle: {
       on: {
-        MOVE: 'move',
-        EXPLORE: 'explore',
-        EXPLOIT: 'exploit',
+        MOVE: dayTransitions('move'),
+        EXPLORE: dayTransitions('explore'),
+        EXPLOIT: dayTransitions('exploit'),
       },
     },
     move: {
@@ -37,7 +36,13 @@ const dayStates = {
       },
     },
     exploit: {
-      entry: ['fuelUpdate', 'foodUpdate', 'waterUpdate', 'staminaUpdate'],
+      entry: [
+        'movesIncrement',
+        'fuelUpdate',
+        'foodUpdate',
+        'waterUpdate',
+        'staminaUpdate',
+      ],
       on: {
         MOVE: dayTransitions('move'),
         EXPLORE: dayTransitions('explore'),
@@ -97,6 +102,7 @@ export const stateMachine = Machine(
         },
       },
       fail: {
+        initial: 'idle',
         id: 'fail',
         states: {
           idle: {},
@@ -110,25 +116,35 @@ export const stateMachine = Machine(
   {
     actions: {
       movesIncrement: assign((ctx, _e) => {
-        return { moves: ctx.moves + 1 };
+        return { moves: (ctx.moves += 1) };
       }),
       fuelUpdate: assign((ctx, e) => {
-        return { fuel: ctx.fuel + e.fuel };
+        return { fuel: Math.max(ctx.fuel + e.fuel, 0) };
       }),
       foodUpdate: assign((ctx, e) => {
-        return { food: ctx.food + e.food };
+        return { food: Math.max(ctx.food + e.food, 0) };
       }),
       waterUpdate: assign((ctx, e) => {
-        return { water: ctx.water + e.water };
+        return { water: Math.max(ctx.water + e.water, 0) };
       }),
       staminaUpdate: assign((ctx, e) => {
-        return { stamina: ctx.stamina + e.stamina };
+        return { stamina: Math.max(ctx.stamina + e.stamina, 0) };
       }),
     },
     guards: {
-      isAlive: (ctx, e) => ctx.stamina + e.stamina > 0,
+      isAlive: (ctx, e) => {
+        console.log(ctx.stamina, e.stamina);
+        return ctx.stamina + e.stamina > 0;
+      },
       hasMoves: (ctx, e) => {
+        console.log(ctx.moves, e);
         return ctx.moves < 4 || ctx.moves % 4 !== 0;
+      },
+      isAliveAndHasMoves: (ctx, e) => {
+        console.log(ctx, e);
+        return (
+          ctx.stamina + e.stamina > 0 && (ctx.moves < 4 || ctx.moves % 4 !== 0)
+        );
       },
     },
   }
